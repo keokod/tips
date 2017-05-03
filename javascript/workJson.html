@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>user</title>
+    <script src="./lib/aja.min.js"></script>
+
+</head>
+
+<body>
+    <script>
+        const req = new XMLHttpRequest();
+
+        req.onreadystatechange = function (event) {
+            // XMLHttpRequest.DONE === 4
+            if (this.readyState === XMLHttpRequest.DONE) {
+                if (this.status === 200) {
+                    console.log(this.responseText);
+                    var user = this.responseText;
+                    user = JSON.parse(user); //!!!!!si on ne parse pas, on ne peut pas faire user[0].email
+                    console.log(typeof (user));
+                    console.log("par ajax *******");
+                    console.log(user);
+                    console.log("email  *******");
+                            console.log(user[0].email);
+                  
+
+                } else {
+                    console.log("Status de la réponse: %d (%s)", this.status, this.statusText);
+                }
+            }
+        };
+
+
+        req.open('GET', 'http://192.168.33.10/akaforum/public/', true);
+        req.send(null);
+
+        console.log("non ajax !!!!!");
+        var homme = [
+            {
+                "user_id": 1,
+                "pseudo": "toto",
+                "email": "email@gmail.fr",
+                "mdp": "789564"
+            }
+        ]
+        console.log(typeof (homme));
+        console.log("email  !!!!!");
+        console.log(homme[0].email);
+    </script>
+
+</body>
+
+</html>
