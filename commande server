@@ -1,0 +1,33 @@
+fichier source liste:
+
+deb http://deb.debian.org/debian jessie main non-free
+deb-src http://deb.debian.org/debian jessie main non-free
+
+deb http://deb.debian.org/debian jessie-updates main non-free
+deb-src http://deb.debian.org/debian jessie-updates main non-free
+
+deb http://security.debian.org/ jessie/updates main non-free
+deb-src http://security.debian.org/ jessie/updates main non-free
+
+deb http://packages.dotdeb.org jessie all
+
+
+__________________________________________________________________________________
+
+
+sudo apt-get update && sudo apt-get -y upgrade
+sudo apt-get install ufw
+sudo ufw enable # Firewall is active and enabled on system startup
+sudo ufw allow from 192.168.1.8 #rule added
+sudo nano /etc/hostname # donner un nom à votre serveur ex:mail.exemple.com
+sudo nano /etc/hosts # ajouter à la première ligne votre nom ex : 127.0.0.1 mail.exemple.com
+sudo apt-get install --assume-yes ssl-cert
+sudo make-ssl-cert generate-default-snakeoil --force-overwrite
+sudo apt-get upgrade --assume-yes
+sudo nano /etc/apt/sources.list # ajouter cette liste => deb http://packages.dotdeb.org jessie all
+#obligatoire se connecter en root
+wget -O- https://www.dotdeb.org/dotdeb.gpg | apt-key add - apt-update #100%[==============>]   5,17K  --.-KB/s   ds 0s 
+exit
+sudo apt install php7.0 php7.0-fpm php7.0-mysql php7.0-curl php7.0-json php7.0-gd php7.0-mcrypt php7.0-msgpack php7.0-memcached php7.0-intl php7.0-sqlite3 php7.0-gmp php7.0-geoip php7.0-mbstring php7.0-xml php7.0-zip
+sudo apt-get install libapache2-mod-fastcgi
+apt install apache2-mpm-event php5-fpm
