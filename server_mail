@@ -1,1 +1,1 @@
- sudo apt-get install php5 php5-fpm php5-imap php5-mycrypt php5-intl openssl ssl-cert apache2 postfixadmin phpmyadmin
+ sudo apt-get install php5 php5-fpm php5-imap php5-mcrypt php5-intl openssl ssl-cert apache2 postfixadmin phpmyadmin
