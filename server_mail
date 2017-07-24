@@ -77,7 +77,10 @@ query = SELECT goto FROM alias WHERE address='%s' AND active=1
 
 
 
+sudo nano mysql_relay_domains.cf
+
 éditer ce fichier:
+
 
 ________________________________________
 hosts = 127.0.0.1
@@ -122,7 +125,7 @@ submission inet n       -       -       -       -       smtpd
 #  -o smtpd_sender_restrictions=$mua_sender_restrictions
 #  -o smtpd_recipient_restrictions=
 #  -o smtpd_relay_restrictions=permit_sasl_authenticated,reject
-#  -o milter_macro_daemon_name=ORIGINATING
+ -o milter_macro_daemon_name=ORIGINATING
 smtps     inet  n       -       -       -       -       smtpd
   -o syslog_name=postfix/smtps
   -o smtpd_tls_wrappermode=yes
