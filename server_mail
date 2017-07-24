@@ -324,3 +324,38 @@ Jul 24 11:48:13 jessie postfix[2327]: Starting Postfix Mail Transport Agent: pos
 Jul 24 11:48:13 jessie systemd[1]: Started LSB: Postfix Mail Transport Agent.
 Jul 24 11:48:13 jessie postfix/master[2432]: daemon started -- version 2.11.3, configuration /etc/postfix
 
+
+/etc/apache2/sites-available$ sudo a2ensite default-ssl.conf
+/etc/apache2/sites-available$ sudo a2ensite default-ssl.conf
+/etc/apache2/sites-enabled$ sudo rm 000-default.conf 
+
+
+/etc/apache2$ sudo nano ports.conf
+________________________________________________
+commenter cette ligne:
+#Listen 80
+
+________________________________________________
+ sudo a2enmod ssl
+ sudo  service apache2 restart
+etc/apache2/mods-available$ sudo systemctl status apache2
+● apache2.service - LSB: Apache2 web server
+   Loaded: loaded (/etc/init.d/apache2)
+  Drop-In: /lib/systemd/system/apache2.service.d
+           └─forking.conf
+   Active: active (running) since Mon 2017-07-24 12:13:46 GMT; 1min 15s ago
+  Process: 2592 ExecStop=/etc/init.d/apache2 stop (code=exited, status=0/SUCCESS)
+  Process: 2614 ExecStart=/etc/init.d/apache2 start (code=exited, status=0/SUCCESS)
+   CGroup: /system.slice/apache2.service
+           ├─2629 /usr/sbin/apache2 -k start
+           ├─2632 /usr/sbin/apache2 -k start
+           └─2633 /usr/sbin/apache2 -k start
+
+Jul 24 12:13:45 jessie systemd[1]: Starting LSB: Apache2 web server...
+Jul 24 12:13:46 jessie apache2[2614]: Starting web server: apache2.
+Jul 24 12:13:46 jessie systemd[1]: Started LSB: Apache2 web server.
+
+testé le page d'accueil postfixadmin
+
+https://nomdedomaine.com/postfixadmin/
+ 
