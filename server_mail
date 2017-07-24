@@ -1,2 +1,41 @@
  sudo apt-get install php5 php5-fpm php5-imap php5-mcrypt php5-intl openssl ssl-cert apache2 postfixadmin phpmyadmin
  sudo apt-get install postfix postfix-mysql libsasl2-modules libsasl2-modules-sql
+ 
+ 
+sudo groupadd -g 3000 vmail
+sudo useradd -d /home/vmail -m -u 3000 -g 3000 vmail
+groups vmail
+sudo nano /etc/postfix/main.cf
+modifier le fichier
+_________________________________________________________________
+##-------------------------------
+virtual_uid_maps = static:3000
+virtual_gid_maps = static:3000
+virtual_mailbox_base = /home/vmail
+virtual_mailbox_domains = mysql:/etc/postfix/mysql_virtual_mailbox_domains.cf
+virtual_mailbox_maps = mysql:/etc/postfix/mysql_virtual_alias_maps.cf
+relay_domains = mysql:/etc/postfix/mysql_relay_domains.cf
+virtual_transport = lmtp:unix:private/dovect-lmtp
+smtpd_recipient_restrictions =
+ permit_mynetworks,
+ permit_sasl_authentificated,
+ refect_non_fqdn_hostname,
+ refect_non_fqdn_sender,
+ reject_non_fqdn_recipient,
+ reject_unauth_detination,
+ reject_unauth_pipelining,
+ reject_invalid_hostname
+smtpd_sasl_auth_enable = yes
+smtpd_sasl_security_options = noanonymous
+smtpd_sasl_type = dovecot
+smtpd_sasl_path = private/auth
+milter_default_action = accept
+smtpd_milters = unix:/milter-greylist/milter-greylist.sock,unix:/clamav-milter.ctl,unix:/spamass/spamass.sock
+milter_connect_macros = i b j _ {domain_name} {if_name} {client_addr}
+message_size_limit = 10240000
+smtp_tls_CAfile = /etc/ssl/
+smtp_tls_cert_file = /etc/ssl/
+smtp_tls_key_file = /etc/ssl/
+smtpd_tls_CAfile = /etc/ssl/
+smtpd_tls_auth_only = yes
+smtp_tls_security_level = may
