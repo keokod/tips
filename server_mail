@@ -170,6 +170,27 @@ default_pass_scheme = MD5-MYCYPT
 user_query = SELECT '/home/vmail/%d/%n' AS home, 3000 AS uid, 3000 AS gid FROM mailbox WHERE username = '%u'
 password_query = SELECT password FROM mailbox WHERE username = '%u'
 
+sudo nano 10-auth.conf => modifier ces 2 lignes:
+_______________________________________________________________
+auth_mechanisms = plain login    #=> ajouter login
+#!include auth-system.conf.ext #=> commenter la ligne
+!include auth-sql.conf.ext #=> decommenter cette ligne
+_______________________________________________________________
+
+sudo nano 10-mail.conf 
+_______________________________________________________________
+modifier la ligne mail_location:
+#   mail_location = maildir:~/Maildir
+#   mail_location = mbox:~/mail:INBOX=/var/mail/%u
+#   mail_location = mbox:/var/mail/%d/%1n/%n:INDEX=/var/indexes/%d/%1n/%n
+#
+# <doc/wiki/MailLocation.txt>
+#
+mail_location = maildir:/home/vmail/%d/%n:INDEX=/home/vmail/%d/%n/indexes
+_______________________________________________________________
+
+
+
 
 
 
