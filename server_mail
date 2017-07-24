@@ -156,4 +156,20 @@ proxywrite unix -       -       n       -       1       proxymap
 smtp      unix  -       -       -       -       -       smtp
 
 
+_________________________________________________________
+
+sudo apt-get install dovecot-imap dovecot-pop3d dovecot-mysql dovecot-lmtpd
+
+sudo nano dovecot-mysql.conf.ext
+
+_______________________________________________________________
+
+driver = mysql
+connect = host = 127.0.0.1 dbname=postfix user=postfix password=root
+default_pass_scheme = MD5-MYCYPT
+user_query = SELECT '/home/vmail/%d/%n' AS home, 3000 AS uid, 3000 AS gid FROM mailbox WHERE username = '%u'
+password_query = SELECT password FROM mailbox WHERE username = '%u'
+
+
+
 
