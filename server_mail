@@ -205,4 +205,122 @@ _______________________________________________________________
 _______________________________________________________________
 
 
+sudo nano  auth-sql.conf.ext modifer la ligne dovecot-sql
+_______________________________________________________________
+
+# Authentication for SQL users. Included from 10-auth.conf.
+#
+# <doc/wiki/AuthDatabase.SQL.txt>
+
+passdb {
+  driver = sql
+
+  # Path for SQL configuration file, see example-config/dovecot-sql.conf.ext
+  args = /etc/dovecot/dovecot-mysql.conf.ext
+}
+
+# "prefetch" user database means that the passdb already provided the
+# needed information and there's no need to do a separate userdb lookup.
+# <doc/wiki/UserDatabase.Prefetch.txt>
+#userdb {
+#  driver = prefetch
+#}
+
+userdb {
+  driver = sql
+  args = /etc/dovecot/dovecot-mysql.conf.ext
+}
+
+# If you don't have any user-specific settings, you can avoid the user_query
+# by using userdb static instead of userdb sql, for example:
+# <doc/wiki/UserDatabase.Static.txt>
+#userdb {
+  #driver = static
+  #args = uid=vmail gid=vmail home=/var/vmail/%u
+#}
+
+
+_______________________________________________________________
+
+sudo nano 10-master.conf
+
+_______________________________________________________________
+
+service lmtp {
+  unix_listener /var/spool/postfix/private/dovecot-lmtp {
+    mode = 0666
+    user = postfix
+    group = postfix
+  }
+
+  # Create inet listener only if you can't use the above UNIX socket
+  #inet_listener lmtp {
+    # Avoid making LMTP visible for the entire internet
+    #address =
+    #port =
+  #}
+}
+
+#décommanger cette partie
+  unix_listener /var/spool/postfix/private/auth {
+    mode = 0666
+  }
+
+
+_______________________________________________________________
+
+sudo systemctl restart dovecot
+
+sudo systemctl restart postfix
+
+sudo systemctl status dovecot
+● dovecot.service - Dovecot IMAP/POP3 email server
+   Loaded: loaded (/lib/systemd/system/dovecot.service; enabled)
+   Active: active (running) since Mon 2017-07-24 11:45:16 GMT; 1min 6s ago
+ Main PID: 2280 (dovecot)
+   CGroup: /system.slice/dovecot.service
+           ├─2280 /usr/sbin/dovecot -F
+           ├─2281 dovecot/anvil
+           ├─2282 dovecot/log
+           └─2284 dovecot/config
+
+Jul 24 11:45:16 jessie systemd[1]: Started Dovecot IMAP/POP3 email server.
+Jul 24 11:45:16 jessie dovecot[2280]: master: Dovecot v2.2.13 starting up for imap, lmtp, pop3 (core dumps disabled)
+vagrant@jessie:/etc/dovecot/conf.d$ sudo systemctl status postfix
+● postfix.service - LSB: Postfix Mail Transport Agent
+   Loaded: loaded (/etc/init.d/postfix)
+  Drop-In: /run/systemd/generator/postfix.service.d
+           └─50-postfix-$mail-transport-agent.conf
+   Active: active (running) since Mon 2017-07-24 11:48:13 GMT; 1s ago
+  Process: 2313 ExecStop=/etc/init.d/postfix stop (code=exited, status=0/SUCCESS)
+  Process: 2327 ExecStart=/etc/init.d/postfix start (code=exited, status=0/SUCCESS)
+   CGroup: /system.slice/postfix.service
+           ├─2432 /usr/lib/postfix/master
+           ├─2433 pickup -l -t unix -u -c
+           └─2434 qmgr -l -t unix -u
+
+Jul 24 11:48:13 jessie postfix[2327]: Starting Postfix Mail Transport Agent: postfix.
+Jul 24 11:48:13 jessie systemd[1]: Started LSB: Postfix Mail Transport Agent.
+Jul 24 11:48:13 jessie postfix/master[2432]: daemon started -- version 2.11.3, configuration /etc/postfix
+
+
+
+_______________________________________________________________
+
+sudo systemctl status postfix
+● postfix.service - LSB: Postfix Mail Transport Agent
+   Loaded: loaded (/etc/init.d/postfix)
+  Drop-In: /run/systemd/generator/postfix.service.d
+           └─50-postfix-$mail-transport-agent.conf
+   Active: active (running) since Mon 2017-07-24 11:48:13 GMT; 1s ago
+  Process: 2313 ExecStop=/etc/init.d/postfix stop (code=exited, status=0/SUCCESS)
+  Process: 2327 ExecStart=/etc/init.d/postfix start (code=exited, status=0/SUCCESS)
+   CGroup: /system.slice/postfix.service
+           ├─2432 /usr/lib/postfix/master
+           ├─2433 pickup -l -t unix -u -c
+           └─2434 qmgr -l -t unix -u
+
+Jul 24 11:48:13 jessie postfix[2327]: Starting Postfix Mail Transport Agent: postfix.
+Jul 24 11:48:13 jessie systemd[1]: Started LSB: Postfix Mail Transport Agent.
+Jul 24 11:48:13 jessie postfix/master[2432]: daemon started -- version 2.11.3, configuration /etc/postfix
 
