@@ -13,16 +13,16 @@ virtual_uid_maps = static:3000
 virtual_gid_maps = static:3000
 virtual_mailbox_base = /home/vmail
 virtual_mailbox_domains = mysql:/etc/postfix/mysql_virtual_mailbox_domains.cf
-virtual_mailbox_maps = mysql:/etc/postfix/mysql_virtual_alias_maps.cf
+virtual_alias_maps = mysql:/etc/postfix/mysql_virtual_alias_maps.cf
 relay_domains = mysql:/etc/postfix/mysql_relay_domains.cf
-virtual_transport = lmtp:unix:private/dovect-lmtp
+virtual_transport = lmtp:unix:private/dovecot-lmtp
 smtpd_recipient_restrictions =
  permit_mynetworks,
  permit_sasl_authentificated,
- refect_non_fqdn_hostname,
- refect_non_fqdn_sender,
+ reject_non_fqdn_hostname,
+ reject_non_fqdn_sender,
  reject_non_fqdn_recipient,
- reject_unauth_detination,
+ reject_unauth_destination,
  reject_unauth_pipelining,
  reject_invalid_hostname
 smtpd_sasl_auth_enable = yes
@@ -30,7 +30,7 @@ smtpd_sasl_security_options = noanonymous
 smtpd_sasl_type = dovecot
 smtpd_sasl_path = private/auth
 milter_default_action = accept
-smtpd_milters = unix:/milter-greylist/milter-greylist.sock,unix:/clamav-milter.ctl,unix:/spamass/spamass.sock
+smtpd_milters = unix:/milter-greylist/milter-greylist.sock, unix:/clamav/clamav-milter.ctl,unix:/spamass/spamass.sock
 milter_connect_macros = i b j _ {domain_name} {if_name} {client_addr}
 message_size_limit = 10240000
 smtp_tls_CAfile = /etc/ssl/
@@ -39,3 +39,5 @@ smtp_tls_key_file = /etc/ssl/
 smtpd_tls_CAfile = /etc/ssl/
 smtpd_tls_auth_only = yes
 smtp_tls_security_level = may
+
+
