@@ -40,4 +40,37 @@ smtpd_tls_CAfile = /etc/ssl/
 smtpd_tls_auth_only = yes
 smtp_tls_security_level = may
 
+________________________________________________
 
+éditer ce fichier
+sudo nano mysql_virtual_mailbox_domains.cf
+
+
+hosts = 127.0.0.1
+user = postfix
+password = root
+dbname = postfix
+query = SELECT domain FROM domain WHERE domain='%s' and backupmx = 0 and active = 1
+
+___________
+éditer ce fichier:
+
+sudo nano mysql_virtual_mailbox_maps.cf
+
+
+________________________________________
+hosts = 127.0.0.1
+user = postfix
+password = root
+dbname = postfix
+query = SELECT maildir FROM mailbox WHERE username ='%s' AND active = 1
+
+éditer ce fichier
+sudo nano mysql_virtual_alias_maps.cf
+_________________________________________________
+
+hosts = 127.0.0.1
+user = postfix
+password = root
+dbname = postfix
+query = SELECT goto FROM alias WHERE address='%s' AND active=1
