@@ -1,0 +1,13 @@
+Installer gitlab sur jessie:
+
+curl -sS https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.deb.sh | sudo bash
+sudo apt-get install gitlab-ce
+
+sudo gitlab-rake gitlab:setup RAILS_ENV=production
+sudo gitlab-ctl restart
+sudo gitlab-ctl status
+
+Pour le démarrage aller simplement sur localhost.
+Si vous n'avez pas la page de démarrage de gitlab, et que vous avez apache2, il faudra le désactiver, car
+l'install a mis en place ngnix
+
