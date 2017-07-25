@@ -1,0 +1,15 @@
+#!/bin/sh
+# On flush
+iptables -F
+
+#politique
+iptables -P OUTPOUT DROP
+iptables -P INPUT DROP
+iptables -P FORWARD DROP
+
+#connexion établie, ne pas connexter la connexion courante
+iptables -A INPUT -m state -- ETABLISHED,RELATED -j ACCEPT
+iptables -A OUTPUT -m state -- ETABLISHED,RELATED -j ACCEPT
+
+#SSH
+iptables -A INPUT -p tcp --dport 22 -j ACCEPT 
