@@ -8,6 +8,4 @@ sudo gitlab-ctl restart
 sudo gitlab-ctl status
 
 Pour le démarrage aller simplement sur localhost.
-Si vous n'avez pas la page de démarrage de gitlab, et que vous avez apache2, il faudra le désactiver, car
-l'install a mis en place ngnix
-
+http://localhost/users/password/edit?reset_password_token=xxxxxxxxxxxxxxx
