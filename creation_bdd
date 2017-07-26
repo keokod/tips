@@ -1,1 +1,220 @@
-CREATE DATABASE mydatabase CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+-- MySQL dump 10.13  Distrib 5.5.55, for debian-linux-gnu (x86_64)
+--
+-- Host: localhost    Database: rapidcms
+-- ------------------------------------------------------
+-- Server version	5.5.55-0+deb8u1
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `Depot`
+--
+
+DROP TABLE IF EXISTS `Depot`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Depot` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `type` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `url` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `taille` int(10) DEFAULT NULL,
+  `date` date DEFAULT NULL,
+  `description` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Depot`
+--
+
+LOCK TABLES `Depot` WRITE;
+/*!40000 ALTER TABLE `Depot` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Depot` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `article`
+--
+
+DROP TABLE IF EXISTS `article`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `article` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `titre` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `texte` longtext COLLATE utf8mb4_unicode_ci,
+  `date_article` date DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `article`
+--
+
+LOCK TABLES `article` WRITE;
+/*!40000 ALTER TABLE `article` DISABLE KEYS */;
+/*!40000 ALTER TABLE `article` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `banniere`
+--
+
+DROP TABLE IF EXISTS `banniere`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `banniere` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_depot` int(5) DEFAULT NULL,
+  `slogant` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `titre` varchar(45) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `url` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `banniere`
+--
+
+LOCK TABLES `banniere` WRITE;
+/*!40000 ALTER TABLE `banniere` DISABLE KEYS */;
+/*!40000 ALTER TABLE `banniere` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `footer`
+--
+
+DROP TABLE IF EXISTS `footer`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `footer` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `annee` int(5) DEFAULT NULL,
+  `email` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `phone` int(10) DEFAULT NULL,
+  `text` text COLLATE utf8mb4_unicode_ci,
+  `id_depot` int(10) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `footer`
+--
+
+LOCK TABLES `footer` WRITE;
+/*!40000 ALTER TABLE `footer` DISABLE KEYS */;
+/*!40000 ALTER TABLE `footer` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `menu`
+--
+
+DROP TABLE IF EXISTS `menu`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `menu` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `titre` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `mdp` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `url` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `civilite` tinyint(1) DEFAULT NULL,
+  `date_menu` date DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `menu`
+--
+
+LOCK TABLES `menu` WRITE;
+/*!40000 ALTER TABLE `menu` DISABLE KEYS */;
+/*!40000 ALTER TABLE `menu` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `menu_article`
+--
+
+DROP TABLE IF EXISTS `menu_article`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `menu_article` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_menu` int(10) DEFAULT NULL,
+  `id_article` int(10) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_menu_article_id_idx` (`id_menu`),
+  KEY `fk_article_id_idx` (`id_article`),
+  CONSTRAINT `fk_article_id` FOREIGN KEY (`id_article`) REFERENCES `article` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_menu_id` FOREIGN KEY (`id_menu`) REFERENCES `menu` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `menu_article`
+--
+
+LOCK TABLES `menu_article` WRITE;
+/*!40000 ALTER TABLE `menu_article` DISABLE KEYS */;
+/*!40000 ALTER TABLE `menu_article` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `utilisateur`
+--
+
+DROP TABLE IF EXISTS `utilisateur`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `utilisateur` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `mdp` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `nom` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `prenom` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `civilite` tinyint(1) DEFAULT NULL,
+  `date_naissance` date DEFAULT NULL,
+  `pays` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `ville` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `code_postal` varchar(5) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `utilisateur`
+--
+
+LOCK TABLES `utilisateur` WRITE;
+/*!40000 ALTER TABLE `utilisateur` DISABLE KEYS */;
+/*!40000 ALTER TABLE `utilisateur` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2017-07-26  7:19:38
