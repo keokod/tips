@@ -9,3 +9,26 @@ sudo gitlab-ctl status
 
 Pour le démarrage aller simplement sur localhost.
 http://localhost/users/password/edit?reset_password_token=xxxxxxxxxxxxxxx
+
+il faut désactiber la pris en charge de ngnix (sinon nous aurions quelque soit l'url la page gitlab):
+
+
+sudo nano /etc/gitlab/gitlab.rb
+
+##! When bundled nginx is disabled we need to add the external webserver user to
+##! the GitLab webserver group.
+# web_server['external_users'] = []
+web_server['username'] = 'apache'
+web_server['group'] = 'apache'
+# web_server['uid'] = nil
+# web_server['gid'] = nil
+# web_server['shell'] = '/bin/false'
+# web_server['homGitLab Web Servere'] = '/var/opt/gitlab/nginx'
+
+################################################################################
+## GitLab NGINX
+##! Docs: https://docs.gitlab.com/omnibus/settings/nginx.html
+################################################################################
+
+nginx['enable'] = false
+
