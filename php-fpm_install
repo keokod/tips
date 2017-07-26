@@ -33,7 +33,9 @@ cat /etc/apache2/sites-available/php.conf
 
 
 apt-get install php5-fpm apache2-mpm-worker
-a2enmod proxy
+a2enmod proxyAfin de pouvoir installer le module FastCGI de Apache, qui nous sera nécessaire pour faire fonctionner PHP-FPM, il nous faut d’abord activer les dépôts contrib et non-free dans le ficher /etc/apt/sources.list :
+
+deb http://security.debian.org/ jessie/updates main contrib non-free deb http://debian.mirrors.ovh.net/debian/ jessie-updates main contrib non-free deb http://debian.mirrors.ovh.net/debian/ jessie main contrib non-free
 a2enmod proxy_fcgi
 a2enconf php
 a2dismod php5 mpm_prefork
@@ -60,5 +62,24 @@ listen.allowed_clients = 127.0.0.1
 
 
 sudo apt-get install openssl ssl-cert 
+
+
+---------------Résoudre l’erreur de FQDN¶
+
+Si on regarde les logs de Apache (journalctl -u apache2 -e), on a déjà une erreur :
+
+apache2: Could not reliably determine the server's fully qualified domain name, using 127.0.0.1 for ServerName
+
+Elle n’est pas problématique dans le sens où elle n’empêche le processus de démarrer correctement. Cependant on va tout de même tâcher de s’en débarrasser pour éviter de polluer les logs.
+
+On créer donc un fichier /etc/apache2/conf-available/fqdn.conf dans lequel on va mettre :
+
+ServerName localhost
+
+On peut éventuellement remplacer localhost par le nom du serveur, srv.example.net.
+
+Ensuite on active notre fichier de configuration et on recharge le service :
+
+a2enconf fqdn systemctl reload apache2--------------------------------------------
 
 
