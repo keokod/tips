@@ -1,3 +1,86 @@
+sudo apt-get install apache2 apache2-utils
+
+ sudo apache2ctl  -V
+Server version: Apache/2.4.25 (Debian)
+Server built:   2017-07-18T18:37:33
+Server's Module Magic Number: 20120211:68
+Server loaded:  APR 1.5.2, APR-UTIL 1.5.4
+Compiled using: APR 1.5.2, APR-UTIL 1.5.4
+Architecture:   64-bit
+Server MPM:     event  =====>>>  en mode event module, il faut installer worker pour php-fpm
+  threaded:     yes (fixed thread count)
+    forked:     yes (variable process count)
+Server compiled with....
+ -D APR_HAS_SENDFILE
+ -D APR_HAS_MMAP
+ -D APR_HAVE_IPV6 (IPv4-mapped addresses enabled)
+ -D APR_USE_SYSVSEM_SERIALIZE
+ -D APR_USE_PTHREAD_SERIALIZE
+ -D SINGLE_LISTEN_UNSERIALIZED_ACCEPT
+ -D APR_HAS_OTHER_CHILD
+ -D AP_HAVE_RELIABLE_PIPED_LOGS
+ -D DYNAMIC_MODULE_LIMIT=256
+ -D HTTPD_ROOT="/etc/apache2"
+ -D SUEXEC_BIN="/usr/lib/apache2/suexec"
+ -D DEFAULT_PIDLOG="/var/run/apache2.pid"
+ -D DEFAULT_SCOREBOARD="logs/apache_runtime_status"
+ -D DEFAULT_ERRORLOG="logs/error_log"
+ -D AP_TYPES_CONFIG_FILE="mime.types"
+ -D SERVER_CONFIG_FILE="apache2.conf"
+
+
+editer le fichier etc/apache2/sites-available/000-defaut.conf
+
+
+<VirtualHost *:80>
+  ServerName static.test.local
+  DocumentRoot /var/www/html
+  <Directory /var/www/html/>
+	Options Indexes FollowSymLinks MultiViews
+	AllowOverride None
+	Require all granted
+  </Directory>
+	ErrorLog ${APACHE_LOG_DIR}/error.log
+	CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+
+si vous ouvrez votre navigateur /var/www/html/index.html vous devriez avoir l'accueil de apache
+si vous créer un fichier info.php et que vous mettez ceci:
+
+je suis l'info, je ne peux être éxecuter en tant que fichier php
+aller à votre adresse de test:
+
+http://localhost/info.php
+
+vous remarquerez que le navigateur télécharge le fichier!
+
+pour qu'il puisse être exécuter avec php-fpm il faut informer qu'on utilise le php-fpm par un proxy
+
+
+cat /etc/apache2/sites-available/php.conf 
+<VirtualHost *:80>
+	ServerName php.test.local
+	DocumentRoot /var/www/php
+
+  ProxyPassMatch ^/(.*\.php)$ fcgi://127.0.0.1:9000/var/www/php/$1
+
+  <Directory /var/www/php/>
+	Options Indexes FollowSymLinks MultiViews
+	AllowOverride None
+	Require all granted
+  </Directory>
+	ErrorLog ${APACHE_LOG_DIR}/error_php.log
+	CustomLog ${APACHE_LOG_DIR}/access_php.log combined
+</VirtualHost>
+
+
+
+
+
+
+
+
+
 sudo apt-get install php-fpm
 [sudo] Mot de passe de 
 Lecture des listes de paquets... Fait
