@@ -1,0 +1,1 @@
+echo 'username ALL=(ALL) ALL' >> /etc/sudoers
