@@ -31,92 +31,50 @@ Server compiled with....
 
 editer le fichier etc/apache2/sites-available/000-defaut.conf
 
-
+______________________________________________________________________
 <VirtualHost *:80>
-  ServerName static.test.local
-  DocumentRoot /var/www/html
-  <Directory /var/www/html/>
-	Options Indexes FollowSymLinks MultiViews
-	AllowOverride None
-	Require all granted
-  </Directory>
-	ErrorLog ${APACHE_LOG_DIR}/error.log
-	CustomLog ${APACHE_LOG_DIR}/access.log combined
+        # The ServerName directive sets the request scheme, hostname and port that
+        # the server uses to identify itself. This is used when creating
+        # redirection URLs. In the context of virtual hosts, the ServerName
+        # specifies what hostname must appear in the request's Host: header to
+        # match this virtual host. For the default virtual host (this file) this
+        # value is not decisive as it is used as a last resort host regardless.
+        # However, you must set it for any further virtual host explicitly.
+        #ServerName www.example.com
+
+        ServerAdmin webmaster@localhost
+        DocumentRoot /var/www/html
+
+        <FilesMatch "\.php$">
+            SetHandler "proxy:fcgi://127.0.0.1:9000/"
+        </FilesMatch>
+
+        # Available loglevels: trace8, ..., trace1, debug, info, notice, warn,
+        # error, crit, alert, emerg.
+        # It is also possible to configure the loglevel for particular
+        # modules, e.g.
+        #LogLevel info ssl:warn
+
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+        # For most configuration files from conf-available/, which are
+        # enabled or disabled at a global level, it is possible to
+        # include a line for only one particular virtual host. For example the
+        # following line enables the CGI configuration for this host only
+        # after it has been globally disabled with "a2disconf".
+        #Include conf-available/serve-cgi-bin.conf
 </VirtualHost>
+______________________________________________________________________
 
-si vous ouvrez votre navigateur /var/www/html/index.html vous devriez avoir l'accueil de apache
-si vous créer un fichier info.php et que vous mettez ceci:
-
-je suis l'info, je ne peux être éxecuter en tant que fichier php
-aller à votre adresse de test:
-
-http://localhost/info.php
-
-vous remarquerez que le navigateur télécharge le fichier!
-
-pour qu'il puisse être exécuter avec php-fpm il faut informer qu'on utilise le php-fpm par un proxy
+Pour le moment le serveur répond unvailable
 
 
-cat /etc/apache2/sites-available/php.conf 
-<VirtualHost *:80>
-	ServerName php.test.local
-	DocumentRoot /var/www/php
+Ensuite modifier ce fichier:
+ /etc/php/7.0/fpm/pool.d/www.conf 
+ 
+ ;listen = /run/php/php7.0-fpm.sock
+listen = 127.0.0.1:9000
+listen.allowed_clients = 127.0.0.1
 
-  ProxyPassMatch ^/(.*\.php)$ fcgi://127.0.0.1:9000/var/www/php/$1
-
-  <Directory /var/www/php/>
-	Options Indexes FollowSymLinks MultiViews
-	AllowOverride None
-	Require all granted
-  </Directory>
-	ErrorLog ${APACHE_LOG_DIR}/error_php.log
-	CustomLog ${APACHE_LOG_DIR}/access_php.log combined
-</VirtualHost>
-
-
-
-
-
-
-
-
-
-sudo apt-get install php-fpm
-[sudo] Mot de passe de 
-Lecture des listes de paquets... Fait
-Construction de l'arbre des dépendances       
-Lecture des informations d'état... Fait
-The following additional packages will be installed:
-  php-common php7.0-cli php7.0-common php7.0-fpm php7.0-json php7.0-opcache
-  php7.0-readline
-Paquets suggérés :
-  php-pear
-Les NOUVEAUX paquets suivants seront installés :
-  php-common php-fpm php7.0-cli php7.0-common php7.0-fpm php7.0-json
-  php7.0-opcache php7.0-readline
-0 mis à jour, 8 nouvellement installés, 0 à enlever et 94 non mis à jour.
-Il est nécessaire de prendre 3 580 ko dans les archives.
-Après cette opération, 14,2 Mo d'espace disque supplémentaires seront utilisés.
-Souhaitez-vous continuer ? [O/n] 
-
-
-
----------------Résoudre l’erreur de FQDN¶
-
-Si on regarde les logs de Apache (journalctl -u apache2 -e), on a déjà une erreur :
-
-apache2: Could not reliably determine the server's fully qualified domain name, using 127.0.0.1 for ServerName
-
-Elle n’est pas problématique dans le sens où elle n’empêche le processus de démarrer correctement. Cependant on va tout de même tâcher de s’en débarrasser pour éviter de polluer les logs.
-
-On créer donc un fichier /etc/apache2/conf-available/fqdn.conf dans lequel on va mettre :
-
-ServerName localhost
-
-On peut éventuellement remplacer localhost par le nom du serveur, srv.example.net.
-
-Ensuite on active notre fichier de configuration et on recharge le service :
-
-a2enconf fqdn systemctl reload apache2--------------------------------------------
-
-
+il faut commenter la ligne ou il y a le .sock
