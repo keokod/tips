@@ -78,3 +78,15 @@ listen = 127.0.0.1:9000
 listen.allowed_clients = 127.0.0.1
 
 il faut commenter la ligne ou il y a le .sock
+
+
+voici le début de la page phpinfo
+______________________________________________________________________
+
+
+Build Date 	May 11 2017 14:04:47
+Server API 	FPM/FastCGI
+Virtual Directory Support 	disabled
+Configuration File (php.ini) Path 	/etc/php/7.0/fpm
+Loaded Configuration File 	/etc/php/7.0/fpm/php.ini
+Scan this dir for additional .ini files 	/etc/php/7.0/fpm/conf.d 
