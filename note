@@ -21,3 +21,32 @@ renderer/core_renderer.php
          return $this->page->theme->setting_file_url('faviconperso', 'faviconperso');
       //  return "kkkk";
     }
+
+
+    public function favicon() {
+        
+        if (!empty($this->page->theme->settings->favicon)) {
+            
+            global $CFG;
+            if (empty($this->themeconfig)) {
+                $this->themeconfig = $theme = theme_config::load('moockie');
+            }else{
+                return parent::favicon();
+            }
+            $bannertemp = new stdClass();
+            return $this->themeconfig->setting_file_url('faviconperso', 'faviconperso');
+        }
+        return parent::favicon();
+        
+
+    }
+    
+    function theme_moockie_pluginfile($course, $cm, $context, $filearea, $args, $forcedownload, array $options = array()) {
+    if ($context->contextlevel == CONTEXT_SYSTEM) {
+        $theme = theme_config::load('moockie');
+        // By default, theme files must be cache-able by both browsers and proxies.
+        if (!array_key_exists('cacheability', $options)) {
+            $options['cacheability'] = 'public';
+        }
+
+        $validareas = array('bannerback', 'loginbackground', 'loginbackground', 'sitelogo', 'moockiefooterimages' , 'faviconperso');
