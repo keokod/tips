@@ -60,3 +60,12 @@
         xmlhttp.send();
     }
 </script>
+
+@media screen and (max-width: 420px) {
+    #page-header > ol.breadcrumb {
+     //   text-align:center;
+        width: 85%;
+      //  background-color: blue;
+    }
+}
+
