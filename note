@@ -1,52 +1,62 @@
-setting.php
-
-    // Global Settings Page
-    $global = new admin_settingpage('theme_moockie_global_settings', get_string('settings:global:title', 'theme_moockie'), 'theme/moockie:configure');
-    $setting = new moockie_simple_theme_settings($global, 'theme_moockie', 'settings:global:');
-    $setting->add_file('faviconperso');
-    
-    
-theme_mookie.php
-// Dashboard courses
-$string['settings:global:showdashboardcourses'] = 'Frontpage courses';
-$string['settings:global:showdashboardcoursesdesc'] = 'Display courses on homepage';
-$string['settings:global:faviconperso'] = 'favicon';
-$string['settings:global:faviconpersodesc'] = 'edit new favicon';
-        
-        
-renderer/core_renderer.php
-    public function favicon() {
-        
-     //    return $this->image_url('favicon', 'theme');
-         return $this->page->theme->setting_file_url('faviconperso', 'faviconperso');
-      //  return "kkkk";
-    }
+<script>
+    $(document).ready(function() {
 
 
-    public function favicon() {
-        
-        if (!empty($this->page->theme->settings->favicon)) {
+        $('.helptooltip').mouseover(function(e) {
+
+            var iconhelp = $(this).children().attr("href"); //récupere le lien
+            $(this).children().attr("href", ""); //bloquer l'url de redirection
+            $(this).children().attr("target", ""); //bloquer la redirection de l'image
+
+
+
+
+            $(this).on('click', function(e) {
+                console.log("on a clique");
+ 
+                var shorthelp = $(this).children().attr("title");
+                
+                
+                $(this).children().prop("title", "new title value")
+                
+              //  $(this).children().attr("title", "je suis l'aide"); //bloquer l'url de redirection
+                /*
+                if ($(this).attr("title") == shorthelp) {
+                    $(this).attr("title", "je suis l'aide");
+                }
+                else {
+                    $(this).attr("title", shorthelp);
+                }
+                */
+                e.preventDefault(); //arreter lle href
+            });
             
-            global $CFG;
-            if (empty($this->themeconfig)) {
-                $this->themeconfig = $theme = theme_config::load('moockie');
-            }else{
-                return parent::favicon();
-            }
-            $bannertemp = new stdClass();
-            return $this->themeconfig->setting_file_url('faviconperso', 'faviconperso');
-        }
-        return parent::favicon();
         
+        
+            // $(this).replaceWith("<div>" + $(this).text() + "</div>");
+            //var tagimg = $(this).children().attr( "title" );
+            //console.log(tagimg);
+            //e.stopPropagation();
 
-    }
-    
-    function theme_moockie_pluginfile($course, $cm, $context, $filearea, $args, $forcedownload, array $options = array()) {
-    if ($context->contextlevel == CONTEXT_SYSTEM) {
-        $theme = theme_config::load('moockie');
-        // By default, theme files must be cache-able by both browsers and proxies.
-        if (!array_key_exists('cacheability', $options)) {
-            $options['cacheability'] = 'public';
+        });
+
+    });
+
+    console.log("*** je suis un test ***")
+
+    function httpGet(theUrl) {
+        if (window.XMLHttpRequest) { // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
         }
-
-        $validareas = array('bannerback', 'loginbackground', 'loginbackground', 'sitelogo', 'moockiefooterimages' , 'faviconperso');
+        else { // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                createDiv(xmlhttp.responseText);
+            }
+        }
+        xmlhttp.open("GET", theUrl, false);
+        xmlhttp.send();
+    }
+</script>
