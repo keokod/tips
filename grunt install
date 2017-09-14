@@ -1,0 +1,21 @@
+>> Local Npm module "grunt-contrib-less" not found. Is it installed?
+>> Local Npm module "grunt-contrib-watch" not found. Is it installed?
+>> Local Npm module "grunt-exec" not found. Is it installed?
+>> Local Npm module "grunt-text-replace" not found. Is it installed?
+
+npm install grunt --save-dev
+
+
+root@webserver:/home/vagrant/public_html/moodle/theme/exemple# npm install grunt-contrib-watch`` --save-dev                                                                
+theme-bootstrap-tasks@0.1.0 /home/vagrant/public_html/moodle/theme/exemple
+
+root@webserver:/home/vagrant/public_html/moodle/theme/exemple# npm install grunt-contrib-watch --save-dev 
+theme-bootstrap-tasks@0.1.0 /home/vagrant/public_html/moodle/theme/exemple
+└── grunt-contrib-watch@0.5.3 
+
+root@webserver:/home/vagrant/public_html/moodle/theme/exemple# npm install grunt-exec --save-dev                                                                           
+theme-bootstrap-tasks@0.1.0 /home/vagrant/public_html/moodle/theme/exemple
+└── grunt-exec@0.4.7 
+
+root@webserver:/home/vagrant/public_html/moodle/theme/exemple# npm install grunt-text-replace --save-dev                                                                   
+theme-bootstrap-tasks@0.1.0 /home/vagrant/public_html/moodle/theme/exemple
