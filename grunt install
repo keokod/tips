@@ -6,7 +6,7 @@
 npm install grunt --save-dev
 
 
-root@webserver:/home/vagrant/public_html/moodle/theme/exemple# npm install grunt-contrib-watch`` --save-dev                                                                
+root@webserver:/home/vagrant/public_html/moodle/theme/exemple# npm install grunt-contrib-less --save-dev                                                                
 theme-bootstrap-tasks@0.1.0 /home/vagrant/public_html/moodle/theme/exemple
 
 root@webserver:/home/vagrant/public_html/moodle/theme/exemple# npm install grunt-contrib-watch --save-dev 
