@@ -1,34 +1,51 @@
-
+navbarr moustache
 <div id="tooltip">
     je suis ===
 </div>
 
 <script>
     $(document).ready(function() {
-
+        var extPage = $('.helptooltip').children().attr('href');
         $('.iconhelp').on('click', function(e) {
             e.preventDefault();
-            var pos = $(this).position();
+            
+            var display = "off";
+            var infobull =  $("#tooltip").load(extPage +" .no-overflow");
+            var pos = $('.iconhelp').position();
             $('#tooltip').css({
+                
                 "background-color": "yellow",
                 "display": "block",
-                "left": "500px",
-                "top": "500px"
+                "left": e.pageX + 20,
+                "top": e.pageY - $('#tooltip').height()
             });
+            
+            $(this).click(function(){
+            $('#tooltip').css({
+                
+                "display": "none",
+
+            });
+            }
+
+                );
+            
         });
-
-        $("#tooltip").load("http://localhost/moodle/help.php?component=admin&identifier=cron&lang=fr .no-overflow");
-
     });
 </script>
 
 <style>
     #tooltip {
+        z-index:100;
+        position:absolute;
         width: 10%;
-
         display: none;
+        padding:1em;
     }
 </style>
+
+
+
 
 <script>
     $(document).ready(function() {
