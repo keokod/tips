@@ -1,3 +1,35 @@
+
+<div id="tooltip">
+    je suis ===
+</div>
+
+<script>
+    $(document).ready(function() {
+
+        $('.iconhelp').on('click', function(e) {
+            e.preventDefault();
+            var pos = $(this).position();
+            $('#tooltip').css({
+                "background-color": "yellow",
+                "display": "block",
+                "left": "500px",
+                "top": "500px"
+            });
+        });
+
+        $("#tooltip").load("http://localhost/moodle/help.php?component=admin&identifier=cron&lang=fr .no-overflow");
+
+    });
+</script>
+
+<style>
+    #tooltip {
+        width: 10%;
+
+        display: none;
+    }
+</style>
+
 <script>
     $(document).ready(function() {
 
