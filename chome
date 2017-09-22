@@ -1,0 +1,3 @@
+#problème d'install chrome sous debian 9 lancer cette commande
+
+apt --fix-broken install
