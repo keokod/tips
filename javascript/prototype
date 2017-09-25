@@ -12,4 +12,12 @@ var moto.__proto__;
 object.getPrototypeOf(moto);//obtenir la méthode prototype
 
 var bmw= objet.create(vehicule.getRoue);
-bmw.
+
+
+let voiture =  function(nb_roue){
+  this.nb_roue = 4;
+)
+
+voiture.prototype.Roue = function(){
+  retourn this.nb_roue;
+}
