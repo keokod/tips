@@ -62,3 +62,11 @@ LOUIS BLAKENSHIP
     var evens = [2,4,6,8];
     var odds = evens.map(v => v + 1); //donne 3,5,7,8
     console.log(odds);
+ 
+ #remplacement + de la concatenation:
+     var firstName = "Nate";
+    var lastName = "Murray";
+    // interpolate a string
+    var greeting = `Hello ${firstName} ${lastName}`; #attention quote d 7 obligatoire
+    console.log(greeting);
+ 
