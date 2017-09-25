@@ -1,0 +1,11 @@
+#création d'objet vide avec enum:
+    enum Role {Employee, Manager, Admin};
+#donne:
+
+Object { 0: "Employee", 1: "Manager", 2: "Admin", Employee: 0, Manager: 1, Admin: 2 } main.bundle.js:192:9
+Object { 0: "Employee", 1: "Manager", 2: "Admin", Employee: 0, Manager: 1, Admin: 2 } main.bundle.js:192:9
+Object { 0: "Employee", 1: "Manager", 2: "Admin", Employee: 0, Manager: 1, Admin: 2 }
+
+    enum Role {Employee, Manager, Admin};
+    console.log('Roles: ', Role[0], ',', Role[1], 'and', Role[2]);
+ #donne   Roles:  Employee , Manager and Admin
