@@ -38,5 +38,22 @@ super.run();
 }
 var headers: string[] = ['Name'];
 var data: string[] = ['Alice Green', 'Paul Pfifer', 'Louis Blakenship'];
-var r: TabbedReport = new TabbedReport(headers, data)
+var r: TabbedReport = new TabbedReport(headers, data) #ici data va être décomposer dans la boucle de report
 r.run();
+
+
+#travail sur la décomposition d'une table:
+
+data = ['Alice Green', 'Paul Pfifer', 'Louis Blakenship'];
+data.forEach(function(quelquechose) { console.log(quelquechose); });
+data.forEach( quoi => {
+console.log(quoi.toUpperCase())
+});
+
+Alice Green test.html:3:39
+Paul Pfifer test.html:3:39
+Louis Blakenship test.html:3:39
+ALICE GREEN test.html:5:1
+PAUL PFIFER test.html:5:1
+LOUIS BLAKENSHIP
+
