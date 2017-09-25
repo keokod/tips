@@ -9,3 +9,16 @@ Object { 0: "Employee", 1: "Manager", 2: "Admin", Employee: 0, Manager: 1, Admin
     enum Role {Employee, Manager, Admin};
     console.log('Roles: ', Role[0], ',', Role[1], 'and', Role[2]);
  #donne   Roles:  Employee , Manager and Admin
+
+class Report {
+data: Array<string>;
+constructor(data: Array<string>) {
+this.data = data;
+}
+run() {
+this.data.forEach(function(line) { console.log(line); });
+}
+}
+
+var r: Report = new Report(['First line', 'Second line']);
+r.run();
