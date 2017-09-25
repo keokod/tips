@@ -1,0 +1,15 @@
+#utliser un prototype
+
+var vehicule = function {
+  nb_roue = 0;
+  console.log("je suis une voiture à +this.nb_roue+";
+  public function getRoue(){
+    retourn this.nb_roue;
+  }
+}
+
+var moto.__proto__;
+object.getPrototypeOf(moto);//obtenir la méthode prototype
+
+var bmw= objet.create(vehicule.getRoue);
+bmw.
