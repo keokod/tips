@@ -16,3 +16,4 @@ statement = déclaration
 mockup = maquette
 user-facing template = modèle tourné vers l'utilisateur
 neighboring literal strings = chaînes littéraires voisines
+This is a big improvement in modularity = Il s'agit d'une grande amélioration de la modularité
