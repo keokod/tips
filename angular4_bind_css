@@ -1,0 +1,76 @@
+On souhaite appliquer un css exemple:
+
+&nbsp;
+<h3 class=""><strong>Temoin rouge si on a cliquer sur le bouton</strong></h3>
+<button>Activate</button>
+
+voici son html:
+<div>
+<div><strong>&lt;h3 [class.temoin] = isBurger&gt;Temoin rouge si on a cliquer sur le bouton&lt;/h3&gt;</strong></div>
+<div><strong>&lt;button (click)="activeBurger()"&gt;Activate&lt;/button&gt;</strong></div>
+</div>
+&nbsp;
+<div></div>
+La premier chose à faire c'est que le bouton puisse être cliquable pour pouvoir activer la demande d'appliquer le css pour cela appliquons ceci au css:
+<div>
+<div><strong>button {</strong></div>
+<div><strong>cursor: pointer;</strong></div>
+<div><strong>}</strong></div>
+</div>
+Maintenant qu'il est cliquable on peu testé avec un console.log dans son composant:
+<div>
+<div><strong>import { Component, OnInit } from '@angular/core';</strong></div>
+<div><strong>import { Tete} from './tete.model';</strong></div>
+<div><strong>@Component({</strong></div>
+<div><strong>selector:'app-tete',</strong></div>
+<div><strong>templateUrl:'./tete.component.html',</strong></div>
+<div><strong>styleUrls: ['./tete.component.css']</strong></div>
+<div><strong>})</strong></div>
+<div><strong>export class TeteComponent implements OnInit {</strong></div>
+<div><strong>isBurger:boolean=false;</strong></div>
+<div><strong>constructor() {</strong></div>
+<div><strong>}</strong></div>
+<div><strong>activeBurger(){</strong></div>
+<div><strong>console.log("activer le burger");</strong></div>
+<div><strong>}</strong></div>
+<div><strong>ngOnInit() {</strong></div>
+<div><strong>}</strong></div>
+<div><strong>}</strong></div>
+</div>
+l'application du css se passe dans la balise h3:
+
+&lt;h3 [class.temoin] = isBurger&gt;
+
+si "isBurger" = false, on n'applique pas de css par contre si isBurger=true, le css ".temoin" sera appiquer
+
+&nbsp;
+
+Pour cela dans le composant, il vous faut sauvegarder cette valeur, ici elle est initialiser à false:
+
+<strong>isBurger:boolean=false;</strong>
+
+dans votre style ajoutons cette propriété temoin
+
+.temoin{
+
+background:red;
+
+}
+
+&nbsp;
+
+Si vous changer isBurger a true, vous verrez bien votre texte en rouge,
+
+au clique il suffira de créer une méthode et de la charger à true:
+
+&nbsp;
+<div>
+<div><strong>activeBurger(){</strong></div>
+<div><strong>console.log("activatoin du burger");</strong></div>
+<div><strong>this.isBurger=true;</strong></div>
+<div><strong>console.log(this.isBurger);</strong></div>
+<div><strong>}</strong></div>
+</div>
+&nbsp;
+
+&nbsp;
