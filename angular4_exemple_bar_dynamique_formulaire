@@ -1,0 +1,46 @@
+//our root app component
+import {Component} from 'angular2/core';
+import {FORM_DIRECTIVES,FormBuilder,AbstractControl,ControlGroup,} from "angular2/common";
+
+@Component({
+  selector: 'home',
+  providers: [],
+  template: `
+     <div class="home-component" [style.width]="width+'px'" [style.height]="height+'px'">Some this div</div>
+     <br/>
+     <form [ngFormModel]="testForm">
+        width:<input type="number" [ngFormControl]="txtWidth"/> <br>
+        Height:<input type="number"[ngFormControl]="txtHeight" />
+     </form>
+  `,
+  styles:[`
+  
+      .home-component{
+        background-color: red;
+        width: 50px;
+        height: 50px;
+    }
+  
+  `],
+  directives: [FORM_DIRECTIVES]
+})
+export class App {
+  testForm:ControlGroup;
+  public width: Number;
+  public height: Number;
+  public txtWidth:AbstractControl;
+  public txtHeight:AbstractControl;
+  
+  constructor(private _fb:FormBuilder) {
+      this.testForm=_fb.group({
+        'txtWidth':['50'],
+        'txtHeight':['50']
+      });
+      
+      this.txtWidth=this.testForm.controls['txtWidth'];
+      this.txtHeight=this.testForm.controls['txtHeight'];
+      
+      this.txtWidth.valueChanges.subscribe(val=>this.width=val);
+      this.txtHeight.valueChanges.subscribe(val=>this.height =val);
+  }
+}
