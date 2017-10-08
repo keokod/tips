@@ -31,3 +31,5 @@ that is going to be tracked in inventory.
 
 This ensures that we’re able to use the form directives = Cela garantit que nous pouvons utiliser les directives de formulaire
 NgForm does something handy but non-obvious:  = NgForm fait quelque chose de pratique mais pas évident:
+nice coat of CSS = belle couche de CSS
+It’s also worth pointing out that NgModel = Il convient également de souligner que NgModel
