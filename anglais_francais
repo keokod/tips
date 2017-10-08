@@ -26,3 +26,8 @@ Form inputs are meant to modify data = Les entrées de formulaire sont destinée
 mean = signifier
 Changes often need to be reflected = Les changements doivent souvent se refléter
 Users have a lot of leeway = Les utilisateurs ont beaucoup de marge de manoeuvre
+SKU is an abbreviation for “stockkeeping unit”. It’s a term for a unique id for a product
+that is going to be tracked in inventory.
+
+This ensures that we’re able to use the form directives = Cela garantit que nous pouvons utiliser les directives de formulaire
+NgForm does something handy but non-obvious:  = NgForm fait quelque chose de pratique mais pas évident:
