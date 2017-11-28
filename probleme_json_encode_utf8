@@ -1,0 +1,121 @@
+1
+2
+3
+4
+	
+-- Les jeux actifs pour la connexion courante (ceux à considérer)
+SHOW SESSION VARIABLES LIKE 'character\_set\_%';
+-- Les jeux tels qu'ils sont configurés par défaut (à titre informatif)
+-- SHOW GLOBAL VARIABLES LIKE 'character\_set\_%';
+
+sur ovh voici ce que ça donne sous phpmyadmin ovh MYSQL v.5.6:
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+	
+SHOW SESSION VARIABLES LIKE 'character\_set\_%'
+Profiling [Edit inline] [ Edit ] [ Create PHP code ] [ Refresh ]
+ 
++ Options
+Variable_name   Value
+character_set_client    utf8
+character_set_connection    utf8
+character_set_database  latin1
+character_set_filesystem    binary
+character_set_results   utf8
+character_set_server    latin1
+character_set_system    utf8
+
+
+
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+	
+SHOW GLOBAL VARIABLES LIKE 'character\_set\_%'
+Profiling [Edit inline] [ Edit ] [ Create PHP code ] [ Refresh ]
+ 
++ Options
+Variable_name   Value
+character_set_client    latin1
+character_set_connection    latin1
+character_set_database  latin1
+character_set_filesystem    binary
+character_set_results   latin1
+character_set_server    latin1
+character_set_system    utf8
+
+
+voici ce que ça donne sur mon vps 10.1.26-MariaDB-0+deb9u1
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+	
+MariaDB [(none)]> SHOW SESSION VARIABLES LIKE 'character\_set\_%';
++--------------------------+---------+
+| Variable_name            | Value   |
++--------------------------+---------+
+| character_set_client     | utf8mb4 |
+| character_set_connection | utf8mb4 |
+| character_set_database   | utf8mb4 |
+| character_set_filesystem | binary  |
+| character_set_results    | utf8mb4 |
+| character_set_server     | utf8mb4 |
+| character_set_system     | utf8    |
++--------------------------+---------+
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+	
+MariaDB [(none)]> SHOW GLOBAL VARIABLES LIKE 'character\_set\_%'
+    -> ;
++--------------------------+---------+
+| Variable_name            | Value   |
++--------------------------+---------+
+| character_set_client     | utf8mb4 |
+| character_set_connection | utf8mb4 |
+| character_set_database   | utf8mb4 |
+| character_set_filesystem | binary  |
+| character_set_results    | utf8mb4 |
+| character_set_server     | utf8mb4 |
+| character_set_system     | utf8    |
++--------------------------+---------+
+
+
