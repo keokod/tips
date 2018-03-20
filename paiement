@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>stripe paiement atelier capilaire</title>
+        <script type="text/javascript" src="https://js.stripe.com/v3/"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+    </head>
+    <body>
+        
+        <?php
+        $debit =1;
+        $debit_centime = $debit*100;
+        echo "<h1> somme à payer: $debit</h1>";
+        ?>
+    
+        
+	<form action="debiter.php" method="POST">
+	nom propriétaire carte bleu: <input type="text" name="nomCB"><br/>
+<input type="hidden" name="debit" value="<?php echo $debit_centime ?>">
+<?php 
+echo ' <script
+	    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+	    data-key="pk_test_0H****"
+	    data-amount='.$debit_centime.'
+	    data-name="ATELIER CAPILLAIRE"
+	    data-description="Widget"
+	    data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+	    data-locale="auto"
+	    data-zip-code="true"
+	    data-currency="eur">
+	  </script>';
+	  ?>
+	</form>
+    </body>
+</html>
+
+
+le front end:
+
+
+<?php
+
+
+class Stripe {
+    
+    public $api_key_private ="sk_test_w***";
+    public $headers;
+    public $url = 'https://api.stripe.com/v1/';
+    public $fields = array();
+
+    function __construct () {
+        $this->headers = array('Authorization: Bearer '.$this->api_key_private); // STRIPE_API_KEY = your stripe api key
+    }
+
+    function call () {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $this->headers);
+        curl_setopt($ch, CURLOPT_URL, $this->url);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($this->fields));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        $output = curl_exec($ch);
+        curl_close($ch);
+
+        return json_decode($output, true); // return php array with api response
+    }
+}
+
+
+//Création d'un client compte client stripe ! vérifeir le ssl sinon le serveur répond rien du tout
+
+
+$s = new Stripe();
+$s->url .= 'customers';
+$s->fields['email'] =$_POST["stripeEmail"];
+$s->fields['source'] =$_POST["stripeToken"];
+$s->fields['description'] =$_POST["nomCB"];
+$customer = $s->call();
+
+echo "<hr/>";
+
+
+
+$s = new Stripe();
+$s->url .= 'charges';
+$s->fields['amount'] =$_POST['debit'];
+$s->fields['currency'] ='eur';
+$s->fields['customer'] =$customer['id'];
+$charge = $s->call();
+//var_dump($charge);
+echo "<hr/>";
+echo "<h1> merci d'avoir fait le test paiement ok</h1>";
+var_dump($charge);
+
+
+
